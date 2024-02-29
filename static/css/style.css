@@ -1,0 +1,32 @@
+p {
+    font-weight: 700;
+    color: red;
+}
+
+h1 {
+    text-shadow: black 1px 1px 1px;
+    color: purple;
+}
+
+/* Styling the table to have borders and resizing it*/
+
+table, th, td {
+    border: 1px solid black;
+    width: 10%;
+    border-collapse: collapse;
+}
+/* Differentiate the paragraph to draw more attention */
+p#major {
+    color: blueviolet;
+    font-weight: lighter;
+}
+/*Set a theme for all list items*/
+
+li.list-items {
+    color: darkblue;
+}
+
+img.logo {
+    width: 300px;
+    height: 100px;
+}
