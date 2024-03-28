@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block page_head %}Here is the course that you sent!{% endblock %}
+{% block page_head %}The course you sent:{% endblock %}
 
 
 {% block main_content %}
@@ -9,6 +9,7 @@
     <li>{{ request.args.get('subject') }} {{ request.args.get('course_number') }}</li>
     </ul>
     </div>
+
 {% endblock %}
 
 

@@ -19,9 +19,8 @@ def about():
 
 @app.route("/favorite-course")
 def favorite_course():
-    print("Subject entered was: " + request.args.get('subject'))
-    print("Course Number entered was: " + request.args.get('course_number'))
-
+    # print("Subject entered was: " + request.args.get('subject'))
+    # print("Course Number entered was: " + request.args.get('course_number'))
     return render_template('favorite-course.html')
 
 @app.route("/contact", methods=['GET', 'POST'])
