@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Here is the course that you sent!</h1>
-<p>{{ request.args.get('subject') }} {{ request.args.get('course_number') }}</p>
+{% block page_head %}Here is the course that you sent!{% endblock %}
 
 
-</body>
-</html>
+{% block main_content %}
+    <div class="container">
+    <ul>
+    <li>{{ request.args.get('subject') }} {{ request.args.get('course_number') }}</li>
+    </ul>
+    </div>
+{% endblock %}
+
+
+
