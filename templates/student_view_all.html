@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{#This page populates the landing page of all students from database#}
 {% block page_title %}
     View All Students
 {% endblock %}
@@ -12,7 +12,7 @@
 
     <div class="row">
     <div class="col">
-
+{#Show appropriate confirmation message#}
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -22,7 +22,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
+{#Table to show all records from database#}
     <table class="table table-striped">
         <tr>
             <th>Last Name</th>
@@ -31,7 +31,7 @@
             <th>Is Honors?</th>
             <th>Actions</th>
         </tr>
-
+{# Display the table with relevant student information from database #}
         {% for each_student, each_major in students %}
         <tr>
             <td><a href="{{ url_for('student_view', student_id=each_student['student_id']) }}">{{ each_student['last_name'] }}</a></td>
