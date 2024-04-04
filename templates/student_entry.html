@@ -23,9 +23,11 @@
 
 {% block page_content %}
 
+{#Start of form to send data#}
 <form class="row g-3"
       action="{{ url_for('student_edit', student_id=student['student_id']) if student else url_for('student_create') }}" method="post">
-  <div class="col-md-4">
+{# Input field for first name #}
+    <div class="col-md-4">
     <label for="first_name" class="form-label"><strong>First Name</strong></label>
     {% if action and action in ['create', 'update'] %}
     <input type="text" class="form-control" id="first_name" name="first_name" value="{{ student['first_name'] if student else '' }}" required>
@@ -33,6 +35,7 @@
         <br>{{ student['first_name'] }}
     {% endif %}
   </div>
+{#Input field for last name#}
   <div class="col-md-4">
     <label for="last_name" class="form-label"><strong>Last Name</strong></label>
     {% if action and action in ['create', 'update'] %}
@@ -41,6 +44,7 @@
         <br>{{ student['last_name'] }}
     {% endif %}
   </div>
+{#Input field for date of birth#}
   <div class="col-md-4">
     <label for="birth_date" class="form-label"><strong>Birth Date</strong></label>
     {% if action and action in ['create', 'update'] %}
@@ -50,6 +54,7 @@
     {% endif %}
   </div>
 
+{#Field for user to input a specific major#}
   <div class="col-md-4">
     <label for="major_id" class="form-label"><strong>Major</strong></label>
     {% if action and action in ['create', 'update'] %}
@@ -68,6 +73,17 @@
     {% endif %}
   </div>
 
+{#Field for user to input email#}
+<div class="col-md-4">
+    <label for="email" class="form-label"><strong>Email</strong></label>
+    {% if action and action in ['create', 'update'] %}
+<input type="email" class="form-control" id="email" name="email" maxlength="100" required>
+    {% else %}
+        <br>{{ student['email'] }}
+    {% endif %}
+  </div>
+
+{#Field for user to input credits completed#}
   {% if action and action in ['read', 'update'] %}
   <div class="col-md-4">
     <label for="num_credits_completed" class="form-label"><strong>Number of Credits Completed</strong></label>
@@ -88,6 +104,7 @@
   </div>
   {% endif %}
 
+{#Field for user to input if a student is in honors#}
   <div class="col-12">
         {% if action and action in ['create', 'update'] %}
     <div class="form-check">
@@ -105,11 +122,13 @@
 
 
   </div>
+{#Submit the form and have flask process it#}
   <div class="col-12 text-center">
     {% if action and action in ['create', 'update'] %}
     <button class="btn btn-primary" type="submit">{{ 'Add' if action=='create' else 'Update' }} Student</button>
     {% endif %}
 
+{#Have buttons to cancel or return back to home page#}
     <a href="{{ url_for('student_view_all') }}" class="btn btn-secondary" role="button">
         {% if action and action in ['create', 'update'] %}
         Cancel
