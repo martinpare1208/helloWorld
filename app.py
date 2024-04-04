@@ -12,15 +12,17 @@ app.config['SECRET_KEY'] = 'beyond_course_scope'
 db.init_app(app)
 
 
+#Landing page
 @app.route('/student/view')
 def student_view_all():
+    # in this page, populate the page with data from the DB
     students = Student.query.outerjoin(Major, Student.major_id == Major.major_id) \
         .add_entity(Major) \
         .order_by(Student.last_name, Student.first_name) \
         .all()
     return render_template('student_view_all.html', students=students)
 
-
+# Show the correct identifying student
 @app.route('/student/view/<int:student_id>')
 def student_view(student_id):
     student = Student.query.filter_by(student_id=student_id).first()
@@ -35,7 +37,7 @@ def student_view(student_id):
         flash(f'Student attempting to be viewed could not be found!', 'error')
         return redirect(url_for('student_view_all'))
 
-
+# Create a student and store the sent data into DB
 @app.route('/student/create', methods=['GET', 'POST'])
 def student_create():
     if request.method == 'GET':
@@ -61,7 +63,7 @@ def student_create():
     flash('Invalid action. Please try again.', 'error')
     return redirect(url_for('student_view_all'))
 
-
+#When clicking on edit, populate the webpage with the correct "update" fields
 @app.route('/student/update/<int:student_id>', methods=['GET', 'POST'])
 def student_edit(student_id):
     if request.method == 'GET':
@@ -97,7 +99,7 @@ def student_edit(student_id):
 
     return redirect(url_for('student_view_all'))
 
-
+# When pressing delete, delete all records of that certain student, and show a message of confirmation
 @app.route('/student/delete/<int:student_id>')
 def student_delete(student_id):
     student = Student.query.filter_by(student_id=student_id).first()
