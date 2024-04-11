@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% if current_user.role in ['ADMIN', 'MANAGER'] %}
-{% block page_content %}
-	<h1>Welcome to your training in the Student Information System.</h1>
-    <p>Welcome to your training for the TerpSys Student Information System.
-        Training materials are currently under construction, but will be created very soon.
-        Please check back soon or email Martin Pare <a href="mailto:mapilado@umd.edu">mapilado@umd.edu</a> if you wish to be placed on the waiting list.</p>
+{% block page_head %}
+    Welcome to your training for the TerpSys Student Information System.
 {% endblock %}
-{% endif %}
+{% block page_content %}
+	<p>Training materials are currently under construction, but will be created very soon.
+            Please check back soon or email Martin Pare <a href="mailto:mapilado@umd.edu">mapilado@umd.edu</a> if you wish to be placed on the waiting list.</p>
+{% endblock %}
+
 
