@@ -8,7 +8,7 @@ class Student(db.Model):
     student_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.VARCHAR(100), nullable=True)
+    email = db.Column(db.String(50), nullable=True)
     major_id = db.Column(db.Integer, db.ForeignKey('major.major_id'))
     birth_date = db.Column(db.DateTime, nullable=False)
     num_credits_completed = db.Column(db.Integer, nullable=False)
@@ -41,25 +41,29 @@ class Major(db.Model):
     def __repr__(self):
         return f"{self.major}"
 
-#Created a table to store user accounts
+
 class User(UserMixin, db.Model):
     __tablename__ = "user"
 
     user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.VARCHAR(20), unique=True, nullable=False)
-    password = db.Column(db.VARCHAR(30), nullable=False)
-    role = db.Column(db.String(30), nullable=False)
+    username = db.Column(db.String(100), unique=True)
+    first_name = db.Column(db.String(30))
+    last_name = db.Column(db.String(50))
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+    role = db.Column(db.String(20))
 
-#Constructor for user objects
-    def __init__(self, user_id, username, password, role):
-        self.user_id = user_id
+    def __init__(self, username, first_name, last_name, email, password, role='PUBLIC'):
         self.username = username
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
         self.password = password
         self.role = role
 
-    #function for Flask to know which user is logged in
+    # Function for flask_login manager to provider a user ID to know who is logged in
     def get_id(self):
-        return self.user_id
-    def __repr__(self):
-        return f"{self.username}"
+        return(self.user_id)
 
+    def __repr__(self):
+        return f"{self.first_name} {self.last_name} ({self.username})"
