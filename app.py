@@ -32,12 +32,12 @@ def training():
     return render_template('training.html')
 
 
-
+#Landing page to log in
 @app.route('/')
 def home():
     return redirect(url_for('login'))
 
-
+#Login logic to determine which pages to show depending on user login role
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     default_route_function = 'student_view_all'
@@ -76,7 +76,7 @@ def login():
 
     return redirect(url_for('login'))
 
-
+#Successful log out
 @app.route('/logout')
 @login_required
 def logout():
@@ -85,6 +85,7 @@ def logout():
     return redirect(url_for('home'))
 
 
+#Only managers and admin can see this html view
 @app.route('/student/view')
 @login_required
 @role_required(['ADMIN', 'MANAGER'])
@@ -95,7 +96,7 @@ def student_view_all():
         .all()
     return render_template('student_view_all.html', students=students)
 
-
+#Dictate which pages are meant to be viewed. Each role has a different page
 @app.route('/student/view/<int:student_id>')
 @login_required
 @role_required(['ADMIN', 'MANAGER', 'STUDENT'])
@@ -130,6 +131,7 @@ def student_view(student_id):
         return render_template('error.html')
 
 
+#CRUD functionality for ADMIN and MANAGER role
 @app.route('/student/create', methods=['GET', 'POST'])
 @login_required
 @role_required(['ADMIN', 'MANAGER'])
@@ -160,6 +162,7 @@ def student_create():
     return redirect(url_for('student_view_all'))
 
 
+#CRUD Functionality for ADMIN and MANAGER
 @app.route('/student/update/<int:student_id>', methods=['GET', 'POST'])
 @login_required
 @role_required(['ADMIN', 'MANAGER'])
@@ -201,6 +204,7 @@ def student_edit(student_id):
     return redirect(url_for('student_view_all'))
 
 
+#Confirmation of student record deletion
 @app.route('/student/delete/<int:student_id>')
 @login_required
 @role_required(['ADMIN'])
@@ -217,13 +221,14 @@ def student_delete(student_id):
     return redirect(url_for('student_view_all'))
 
 
+#All bad requests lead to this html page
 @app.route('/error')
 def error():
     # Generic error handler to handle various site errors
     # Before routing to this route, ensure flash function is used
     return render_template('error.html')
 
-
+#If a 404 error arises, then route to this page.
 @app.errorhandler(404)
 def page_not_found(e):
     flash(f'Sorry! You are trying to access a page that does not exist. Please contact support if this problem persists.', 'error')
