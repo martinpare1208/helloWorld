@@ -18,9 +18,19 @@ login_manager = LoginManager()
 login_manager.login_view = 'login' # default login route
 login_manager.init_app(app)
 
+
+#This tracks which user is logged in
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+@app.route('/training')
+@login_required #Can only be accessed if logged in
+@role_required(['MANAGER', 'ADMIN'])
+def training():
+    return render_template('training.html')
+
 
 
 @app.route('/')
